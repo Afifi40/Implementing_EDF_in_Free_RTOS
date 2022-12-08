@@ -1,0 +1,82 @@
+#define traceTASK_SWITCHED_OUT() do\
+									{ switch ((int)pxCurrentTCB->pxTaskTag)\
+										{\
+											case 0: /*IDLE*/\
+												GPIO_write(PORT_0, PIN7, PIN_IS_LOW);\
+												system_time = portGET_RUN_TIME_COUNTER_VALUE(); \
+												cpu_load = ((task_1_total_time + task_2_total_time + task_3_total_time + task_4_total_time + task_5_total_time + task_6_total_time)/ (float)system_time) * 100; \
+												break;\
+											case 1: /*TASK1*/\
+												GPIO_write(PORT_0, PIN1, PIN_IS_LOW);\
+												task_1_out_time = portGET_RUN_TIME_COUNTER_VALUE();\
+												task_1_total_time += task_1_out_time - task_1_in_time;\
+												cpu_load_1 =task_1_total_time * 100 / portGET_RUN_TIME_COUNTER_VALUE();\
+												break;\
+											case 2:	/*TASK2*/\
+												GPIO_write(PORT_0, PIN2, PIN_IS_LOW);\
+												task_2_out_time = portGET_RUN_TIME_COUNTER_VALUE();\
+												task_2_total_time += task_2_out_time - task_2_in_time;\
+												cpu_load_2 =task_2_total_time * 100 / portGET_RUN_TIME_COUNTER_VALUE();\
+												break;\
+											case 3:	/*TASK3*/\
+												GPIO_write(PORT_0, PIN3, PIN_IS_LOW);\
+												task_3_out_time = portGET_RUN_TIME_COUNTER_VALUE();\
+												task_3_total_time += task_3_out_time - task_3_in_time;\
+												cpu_load_3 =task_3_total_time * 100 / portGET_RUN_TIME_COUNTER_VALUE();\
+												break;\
+											case 4:	/*TASK4*/\
+												GPIO_write(PORT_0, PIN4, PIN_IS_LOW);\
+												task_4_out_time = portGET_RUN_TIME_COUNTER_VALUE();\
+												task_4_total_time += task_4_out_time - task_4_in_time;\
+												cpu_load_4 =task_4_total_time * 100 / portGET_RUN_TIME_COUNTER_VALUE();\
+												break;\
+											case 5:	/*TASK5*/\
+												GPIO_write(PORT_0, PIN5, PIN_IS_LOW);\
+												task_5_out_time = portGET_RUN_TIME_COUNTER_VALUE();\
+												task_5_total_time += task_5_out_time - task_5_in_time;\
+												cpu_load_5 =task_5_total_time * 100 / portGET_RUN_TIME_COUNTER_VALUE();\
+												break;\
+											case 6:	/*TASK6*/\
+												GPIO_write(PORT_0, PIN6, PIN_IS_LOW);\
+												task_6_out_time = portGET_RUN_TIME_COUNTER_VALUE();\
+												task_6_total_time += task_6_out_time - task_6_in_time;\
+												cpu_load_6 =task_6_total_time * 100 / portGET_RUN_TIME_COUNTER_VALUE();\
+												break;\
+											default:\
+										}\
+									}while(0)
+
+	#define traceTASK_SWITCHED_IN() do\
+									{ switch ((int)pxCurrentTCB->pxTaskTag)\
+										{\
+												case 0: /*IDLE*/\
+												GPIO_write(PORT_0, PIN7, PIN_IS_HIGH);\
+												break;\
+											case 1: /*TASK1*/\
+												GPIO_write(PORT_0, PIN1, PIN_IS_HIGH);\
+												task_1_in_time = portGET_RUN_TIME_COUNTER_VALUE();\
+												break;\
+											case 2:	/*TASK2*/\
+												GPIO_write(PORT_0, PIN2, PIN_IS_HIGH);\
+												task_2_in_time = portGET_RUN_TIME_COUNTER_VALUE();\
+												break;\
+											case 3:	/*TASK3*/\
+												GPIO_write(PORT_0, PIN3, PIN_IS_HIGH);\
+												task_3_in_time = portGET_RUN_TIME_COUNTER_VALUE();\
+												break;\
+											case 4:	/*TASK4*/\
+												GPIO_write(PORT_0, PIN4, PIN_IS_HIGH);\
+												task_4_in_time = portGET_RUN_TIME_COUNTER_VALUE();\
+												break;\
+											case 5:	/*TASK5*/\
+												GPIO_write(PORT_0, PIN5, PIN_IS_HIGH);\
+												task_5_in_time = portGET_RUN_TIME_COUNTER_VALUE();\
+												break;\
+											case 6:	/*TASK6*/\
+												GPIO_write(PORT_0, PIN6, PIN_IS_HIGH);\
+												task_6_in_time = portGET_RUN_TIME_COUNTER_VALUE();\
+												break;\
+											default:\
+												\
+										}\
+									}while(0)
